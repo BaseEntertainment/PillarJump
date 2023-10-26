@@ -1,0 +1,5 @@
+Links:
+	NewtonSoft Json: com.unity.nuget.newtonsoft-json 
+
+Settings:
+	For fast enter "Play Mode": Project Settings -> Editor -> Enter Play Mode Settings -> only first checkmark
