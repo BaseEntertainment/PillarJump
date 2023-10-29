@@ -18,8 +18,6 @@ public class CameraXAxisFollow : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		Vector3 targetPosition = new(Mathf.SmoothDamp(_transform.position.x, _target.position.x + _positionOffsetX, ref _velocity, _smoothTime), _transform.position.y, _transform.position.z);
-
-		_transform.position = targetPosition;
+		_transform.position = new(Mathf.SmoothDamp(_transform.position.x, _target.position.x + _positionOffsetX, ref _velocity, _smoothTime), _transform.position.y, _transform.position.z);
 	}
 }

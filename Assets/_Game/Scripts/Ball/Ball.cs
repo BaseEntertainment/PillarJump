@@ -3,17 +3,20 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
 public class Ball : MonoBehaviour
 {
-	[SerializeField] private float _jumpForce = 10.0f;
-	[SerializeField] private float _moveForce = 10.0f;
-	[SerializeField] private float _rotationForce = 10.0f;
+	[SerializeField] private float _moveForce = 15.0f;
+	[SerializeField] private float _jumpForce = 8.0f;
+	[SerializeField] private float _rotationForce = 100.0f;
 
-	[SerializeField] private float _xVelocityLimit = 5.0f;
+	[SerializeField] private float _xVelocityLimit = 4.0f;
 
 	[SerializeField] private AudioSource _collideAudioSource;
 
 	private Rigidbody _rigidBody;
 
-	private float _startedTime;
+	private float _startedMoveTime;
+
+	private bool _isMoving = false;
+
 
 	private void Awake()
 	{
@@ -24,10 +27,20 @@ public class Ball : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			RestartStartTime();
+			RestartStartedMoveTime();
+
+			_isMoving = true;
 		}
 
-		if (Input.GetMouseButton(0))
+		if (Input.GetMouseButtonUp(0))
+		{
+			_isMoving = false;
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		if (_isMoving)
 		{
 			Move();
 		}
@@ -35,6 +48,9 @@ public class Ball : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
+		_collideAudioSource.volume = Random.Range(0.2f, 0.3f);
+		_collideAudioSource.Play();
+
 		if (collision.gameObject.TryGetComponent(out Pillar pillar) == false)
 		{
 			return;
@@ -42,34 +58,37 @@ public class Ball : MonoBehaviour
 
 		pillar.Disappear();
 
-		_collideAudioSource.volume = Random.Range(0.3f, 0.4f);
-		_collideAudioSource.Play();
-
 		Jump();
-		RestartStartTime();
+		//Rotate();
+
+		_rigidBody.angularVelocity = Vector3.zero;
+
+		RestartStartedMoveTime();
 	}
 
 	public void Jump()
 	{
 		_rigidBody.velocity = _jumpForce * Vector3.up;
+	}
 
-		_rigidBody.angularVelocity = -_rotationForce * Vector3.one;
+	public void Rotate()
+	{
+		_rigidBody.AddTorque(_rotationForce * Vector3.back);
 	}
 
 	public void Move()
 	{
-		if (_rigidBody.velocity.x > _xVelocityLimit)
-		{
-			return;
-		}
+		var force = _moveForce * (Time.time - _startedMoveTime) * Time.deltaTime;
 
-		var force = _moveForce * (Time.time - _startedTime) * Time.deltaTime;
+		_rigidBody.velocity += force * Vector3.right;
 
-		_rigidBody.velocity += force * Vector3.one;
+		_rigidBody.velocity = new Vector3(Mathf.Clamp(_rigidBody.velocity.x, 0, _xVelocityLimit), _rigidBody.velocity.y, 0);
+
+		Rotate();
 	}
 
-	private void RestartStartTime()
+	private void RestartStartedMoveTime()
 	{
-		_startedTime = Time.time - 0.3f;
+		_startedMoveTime = Time.time;
 	}
 }
