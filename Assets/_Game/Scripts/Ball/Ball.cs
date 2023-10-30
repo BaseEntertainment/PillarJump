@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
@@ -9,14 +10,13 @@ public class Ball : MonoBehaviour
 
 	[SerializeField] private float _xVelocityLimit = 4.0f;
 
-	[SerializeField] private AudioSource _collideAudioSource;
-
 	private Rigidbody _rigidBody;
 
 	private float _startedMoveTime;
 
 	private bool _isMoving = false;
 
+	public static event Action<Pillar> JumpedOnPillar;
 
 	private void Awake()
 	{
@@ -48,43 +48,38 @@ public class Ball : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		_collideAudioSource.volume = Random.Range(0.2f, 0.3f);
-		_collideAudioSource.Play();
+		SoundSystem.PlayJumpSound();
 
 		if (collision.gameObject.TryGetComponent(out Pillar pillar) == false)
 		{
 			return;
 		}
 
-		pillar.Disappear();
-
 		Jump();
-		//Rotate();
 
 		_rigidBody.angularVelocity = Vector3.zero;
+		_rigidBody.AddTorque(_rotationForce * Vector3.one);
 
 		RestartStartedMoveTime();
+
+		JumpedOnPillar?.Invoke(pillar);
 	}
 
 	public void Jump()
 	{
 		_rigidBody.velocity = _jumpForce * Vector3.up;
-	}
 
-	public void Rotate()
-	{
-		_rigidBody.AddTorque(_rotationForce * Vector3.back);
+		VibrationSystem.LightImpact();
 	}
 
 	public void Move()
 	{
-		var force = _moveForce * (Time.time - _startedMoveTime) * Time.deltaTime;
+		float holdTimeDelta = (Time.time - _startedMoveTime) * Time.deltaTime;
 
-		_rigidBody.velocity += force * Vector3.right;
-
+		_rigidBody.velocity += _moveForce * holdTimeDelta * Vector3.right;
 		_rigidBody.velocity = new Vector3(Mathf.Clamp(_rigidBody.velocity.x, 0, _xVelocityLimit), _rigidBody.velocity.y, 0);
 
-		Rotate();
+		_rigidBody.AddTorque(holdTimeDelta * _rotationForce * Vector3.back);
 	}
 
 	private void RestartStartedMoveTime()

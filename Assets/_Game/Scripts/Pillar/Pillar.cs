@@ -4,8 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class Pillar : MonoBehaviour
 {
-	[SerializeField, Range(0, 10.0f)] private float _disappearTime = 3.0f;
-	[SerializeField, Range(0, 100.0f)] private float _disappearYPosition = -10.0f;
+	public int Index { get; set; }
+
+	[SerializeField, Range(0, 10.0f)] private float _animationDuration = 4.0f;
+	[SerializeField, Range(-100f, 100.0f)] private float _animationYEndPosition = -10.0f;
 
 	private void OnDisable()
 	{
@@ -14,6 +16,6 @@ public class Pillar : MonoBehaviour
 
 	public void Disappear()
 	{
-		transform.DOMoveY(_disappearYPosition, _disappearTime).OnComplete(() => gameObject.SetActive(false));
+		transform.DOMoveY(_animationYEndPosition, _animationDuration);
 	}
 }
