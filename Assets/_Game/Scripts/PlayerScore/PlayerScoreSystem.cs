@@ -1,15 +1,43 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerScoreSystem : MonoBehaviour
 {
-	public static int CurrentScore { get; private set; }
-	public static int RecordScore { get; private set; }
-	public static bool IsRecordBeated { get; private set; }
+	public int CurrentScore { get; private set; }
+	public int RecordScore { get; private set; }
+	public bool IsRecordBeated { get; private set; }
 
 	///public static event Action NewRecord;
 
 	private const int DEFAULT_SCORE_VALUE = 0;
 	private const string PLAYER_PREF_SCORE_BEST = "SCORE_BEST";
+
+	private int _lastPillarIndex;
+
+	[SerializeField] private TMP_Text _scoreText;
+
+	private void OnEnable()
+	{
+		Ball.JumpedOnPillar += OnJumpedNewPillar;
+	}
+
+	private void OnDisable()
+	{
+		Ball.JumpedOnPillar -= OnJumpedNewPillar;
+	}
+
+	private void OnJumpedNewPillar(Pillar pillar)
+	{
+		CurrentScore += pillar.Index - _lastPillarIndex;
+		_lastPillarIndex = pillar.Index;
+
+		UpdateUI();
+	}
+
+	private void UpdateUI()
+	{
+		_scoreText.text = CurrentScore.ToString();
+	}
 
 	private void Start()
 	{

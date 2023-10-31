@@ -5,14 +5,16 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class DimedAnimation : MonoBehaviour
 {
-	[SerializeField, Range(1, 255)] private int _alfaEndValue = 150;
-	[SerializeField, Range(0, 5.0f)] private float _duration = 1.5f;
+	[SerializeField, Range(0, 5.0f)] private float _duration = 2.0f;
 
 	private Image _image;
+	private float _alfaEndValue;
 
 	private void Awake()
 	{
 		_image = GetComponent<Image>();
+
+		_alfaEndValue = _image.color.a;
 	}
 
 	private void OnEnable()
@@ -28,6 +30,6 @@ public class DimedAnimation : MonoBehaviour
 	private void Animate()
 	{
 		_image.DOFade(0, 0);
-		_image.DOFade((float)_alfaEndValue / 255, _duration);
+		_image.DOFade(_alfaEndValue, _duration);
 	}
 }

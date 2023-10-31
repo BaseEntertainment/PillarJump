@@ -5,6 +5,7 @@ public class PillarSpawner : MonoBehaviour
 {
 	[SerializeField] private int _initialPillarsCount = 100;
 	[SerializeField] private float _xSpacing = 3.0f;
+	[SerializeField] private float _xSpacingRange = 0.5f;
 	[SerializeField] private float _yMaxPosition = 0.0f;
 	[SerializeField] private float _yMinPosition = 3.0f;
 
@@ -24,10 +25,12 @@ public class PillarSpawner : MonoBehaviour
 
 	private void OnJumpedOnPillar(Pillar pillar)
 	{
-		pillar.Disappear();
+		pillar.DoMove();
 
-		var pos = new Vector2(Random.Range(_xPositionTemp - 0.5f, _xPositionTemp + 0.5f), Random.Range(_yMinPosition, _yMaxPosition));
-		SpawnPillar(pos);
+		for (int i = PillarsPool.ActivePillars.Count; i < _initialPillarsCount; i++)
+		{
+			SpawnPillarOnRandomRange();
+		}
 	}
 
 	private void Start()
@@ -41,9 +44,14 @@ public class PillarSpawner : MonoBehaviour
 
 		for (int i = 1; i < _initialPillarsCount; i++)
 		{
-			var pos = new Vector2(Random.Range(_xPositionTemp - 0.5f, _xPositionTemp + 0.5f), Random.Range(_yMinPosition, _yMaxPosition));
-			SpawnPillar(pos);
+			SpawnPillarOnRandomRange();
 		}
+	}
+
+	private void SpawnPillarOnRandomRange()
+	{
+		var pos = new Vector2(Random.Range(_xPositionTemp - _xSpacingRange, _xPositionTemp + _xSpacingRange), Random.Range(_yMinPosition, _yMaxPosition));
+		SpawnPillar(pos);
 	}
 
 	private void SpawnPillar(Vector2 position)

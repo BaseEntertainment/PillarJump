@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 1445334804667443699}
   m_Layer: 0
   m_Name: BodyCollider
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -204,7 +204,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6, y: 8, z: 0.6}
+  m_Size: {x: 0.6, y: 7.5, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3484136311505657353
 GameObject:

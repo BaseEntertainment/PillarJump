@@ -10,6 +10,8 @@ public class Ball : MonoBehaviour
 
 	[SerializeField] private float _xVelocityLimit = 4.0f;
 
+	[SerializeField] private string DangerTag = "Danger";
+
 	private Rigidbody _rigidBody;
 
 	private float _startedMoveTime;
@@ -17,6 +19,7 @@ public class Ball : MonoBehaviour
 	private bool _isMoving = false;
 
 	public static event Action<Pillar> JumpedOnPillar;
+	public static event Action EnteredDangerZone;
 
 	private void Awake()
 	{
@@ -49,6 +52,11 @@ public class Ball : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
 		SoundSystem.PlayJumpSound();
+
+		if (collision.gameObject.CompareTag(DangerTag))
+		{
+			EnteredDangerZone?.Invoke();
+		}
 
 		if (collision.gameObject.TryGetComponent(out Pillar pillar) == false)
 		{

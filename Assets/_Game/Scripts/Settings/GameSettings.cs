@@ -21,33 +21,36 @@ public static class GameSettings
 		BackgroundMusicEnabled = PlayerPrefs.GetInt(BACKGROUND_MUSIC_ENABLED_PLAYER_PREFS, 1) == 1;
 	}
 
-	public static void ToggleVibration()
+	public static void SwitchVibration()
 	{
 		int newState = VibrationEnabled ? 0 : 1;
 
 		PlayerPrefs.SetInt(VIBRATION_ENABLED_PLAYER_PREFS, newState);
+		PlayerPrefs.Save();
 
 		VibrationEnabled = !VibrationEnabled;
 
 		SettingsChanged?.Invoke();
 	}
 
-	public static void ToggleSoundFX()
+	public static void SwitchSoundFX()
 	{
 		int newState = SoundFXEnabled ? 0 : 1;
 
 		PlayerPrefs.SetInt(SOUND_FX_ENABLED_PLAYER_PREFS, newState);
+		PlayerPrefs.Save();
 
 		SoundFXEnabled = !SoundFXEnabled;
 
 		SettingsChanged?.Invoke();
 	}
 
-	public static void ToggleBackgroundMusic()
+	public static void SwitchBackgroundMusic()
 	{
 		int newState = BackgroundMusicEnabled ? 0 : 1;
 
 		PlayerPrefs.SetInt(BACKGROUND_MUSIC_ENABLED_PLAYER_PREFS, newState);
+		PlayerPrefs.Save();
 
 		BackgroundMusicEnabled = !BackgroundMusicEnabled;
 

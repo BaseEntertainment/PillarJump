@@ -14,7 +14,7 @@ public class Pillar : MonoBehaviour
 		transform.DOKill();
 	}
 
-	public void Disappear()
+	public void DoMove()
 	{
 		transform.DOMoveY(_animationYEndPosition, _animationDuration);
 	}
