@@ -46,6 +46,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4787047549515931328}
   - component: {fileID: 9045913273259486425}
+  - component: {fileID: 640784070765468563}
   m_Layer: 0
   m_Name: PrivacyPolicy
   m_TagString: Untagged
@@ -117,6 +118,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &640784070765468563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146938541996657410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158b91a3770a1644593e07feeed770a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _link: https://www.google.com
 --- !u!1 &1602156684646035255
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9223002106074310963}
-  - component: {fileID: 8124827494862144060}
+  - component: {fileID: 3511986250725358317}
   m_Layer: 5
   m_Name: Popup_PrivacyPolicy
   m_TagString: Untagged
@@ -575,7 +589,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8124827494862144060
+--- !u!114 &3511986250725358317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -584,13 +598,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3342556090860188504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f492f54df1daf3542813aff9ac3ba797, type: 3}
+  m_Script: {fileID: 11500000, guid: b6c888adc31983b41a8847ffaecd08d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _linkPrivacyPolicy: https://www.google.com
-  _linkTermsOfUse: https://www.google.com
-  _buttonPrivacyPolicy: {fileID: 9045913273259486425}
-  _buttonTermsOfUse: {fileID: 7539965081348083136}
 --- !u!1 &3593257453318625681
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +746,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2049340846572671462}
   - component: {fileID: 7539965081348083136}
+  - component: {fileID: 5816766957876004694}
   m_Layer: 0
   m_Name: TermsOfUse
   m_TagString: Untagged
@@ -807,6 +818,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5816766957876004694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3670637832399610780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158b91a3770a1644593e07feeed770a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _link: https://www.google.com
 --- !u!1 &4238396499174604953
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +882,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animationDuration: 0.4
+  _appearsFrom: 1
+  _withBounce: 1
 --- !u!1 &4475885255949503404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,7 +1131,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3129796556109138107}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3342556090860188504}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7741619513554250152
 MonoBehaviour:
   m_ObjectHideFlags: 0

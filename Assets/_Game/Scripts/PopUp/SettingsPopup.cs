@@ -26,15 +26,21 @@ public class SettingsPopup : Popup
 	private void SwitchMusic()
 	{
 		GameSettings.SwitchBackgroundMusic();
+
+		VibrationSystem.LightImpact();
 	}
 
 	private void SwitchSoundFX()
 	{
 		GameSettings.SwitchSoundFX();
+
+		VibrationSystem.LightImpact();
 	}
 
 	private void SwitchVibration()
 	{
 		GameSettings.SwitchVibration();
+
+		VibrationSystem.LightImpact();
 	}
 }

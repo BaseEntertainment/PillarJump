@@ -38,8 +38,6 @@ public class SwitchToggle : MonoBehaviour
 
 	private void Switch(bool isOn)
 	{
-		VibrationSystem.LightImpact();
-
 		_handle.DOAnchorPos(isOn ? -(_handlePosition) : _handlePosition, _animationDuration);
 
 		_background.color = Toggle.isOn ? _activeColor : _inactiveColor;

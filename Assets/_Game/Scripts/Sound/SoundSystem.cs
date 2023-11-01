@@ -12,6 +12,9 @@ public class SoundSystem : MonoBehaviour
 	[SerializeField] private AudioSource _jumpSound;
 	[SerializeField] private Vector2 _jumpVolumeRange;
 
+	[Header("UI"), Space(5)]
+	[SerializeField] private AudioSource _clickSound;
+
 	private static SoundSystem _instance;
 
 	private void Awake()
@@ -59,6 +62,26 @@ public class SoundSystem : MonoBehaviour
 
 		_instance._jumpSound.volume = Random.Range(_instance._jumpVolumeRange.x, _instance._jumpVolumeRange.y);
 		_instance._jumpSound.Play();
+	}
+
+	public static void PlayClickSound()
+	{
+		if (_instance == null)
+		{
+			return;
+		}
+
+		if (GameSettings.SoundFXEnabled == false)
+		{
+			return;
+		}
+
+		if (_instance._clickSound == null)
+		{
+			return;
+		}
+
+		_instance._clickSound.Play();
 	}
 
 	private void UpdateBackgroundMusicState()

@@ -15,6 +15,7 @@ public class PlayerScoreSystem : MonoBehaviour
 	private int _lastPillarIndex;
 
 	[SerializeField] private TMP_Text _scoreText;
+	[SerializeField, Range(1, 100)] private int _multiplier = 5;
 
 	private void OnEnable()
 	{
@@ -28,7 +29,7 @@ public class PlayerScoreSystem : MonoBehaviour
 
 	private void OnJumpedNewPillar(Pillar pillar)
 	{
-		CurrentScore += pillar.Index - _lastPillarIndex;
+		CurrentScore += (pillar.Index - _lastPillarIndex) * _multiplier;
 		_lastPillarIndex = pillar.Index;
 
 		UpdateUI();
