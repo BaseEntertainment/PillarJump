@@ -24,7 +24,7 @@ public class DimedAnimation : MonoBehaviour
 
 	private void OnDisable()
 	{
-		DOTween.KillAll();
+		_image.DOKill();
 	}
 
 	private void Animate()

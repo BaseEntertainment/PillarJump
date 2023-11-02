@@ -9,14 +9,15 @@ public class Ball : MonoBehaviour
 	[SerializeField] private float _rotationForce = 100.0f;
 
 	[SerializeField] private float _xVelocityLimit = 4.0f;
-
+	[SerializeField] private float _initialYPosition = 5.0f;
 	[SerializeField] private string DangerTag = "Danger";
 
 	private Rigidbody _rigidBody;
 
 	private float _startedMoveTime;
 
-	private bool _isMoving = false;
+	private bool _isMoveHolding = false;
+	private bool _canMove = true;
 
 	public static event Action<Pillar> JumpedOnPillar;
 	public static event Action EnteredDangerZone;
@@ -28,22 +29,27 @@ public class Ball : MonoBehaviour
 
 	private void Update()
 	{
+		if (_canMove == false)
+		{
+			return;
+		}
+
 		if (Input.GetMouseButtonDown(0))
 		{
 			RestartStartedMoveTime();
 
-			_isMoving = true;
+			_isMoveHolding = true;
 		}
 
 		if (Input.GetMouseButtonUp(0))
 		{
-			_isMoving = false;
+			_isMoveHolding = false;
 		}
 	}
 
 	private void FixedUpdate()
 	{
-		if (_isMoving)
+		if (_isMoveHolding)
 		{
 			Move();
 		}
@@ -51,12 +57,25 @@ public class Ball : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		SoundSystem.PlayJumpSound();
-
 		if (collision.gameObject.CompareTag(DangerTag))
 		{
-			EnteredDangerZone?.Invoke();
+			if (_canMove)
+			{
+				SoundSystem.PlayCrashSound();
+				EnteredDangerZone?.Invoke();
+			}
+
+			_canMove = false;
+			_isMoveHolding = false;
+
+			gameObject.SetActive(false);
+
+			VibrationSystem.LightImpact();
+
+			return;
 		}
+
+		SoundSystem.PlayJumpSound();
 
 		if (collision.gameObject.TryGetComponent(out Pillar pillar) == false)
 		{
@@ -88,6 +107,28 @@ public class Ball : MonoBehaviour
 		_rigidBody.velocity = new Vector3(Mathf.Clamp(_rigidBody.velocity.x, 0, _xVelocityLimit), _rigidBody.velocity.y, 0);
 
 		_rigidBody.AddTorque(holdTimeDelta * _rotationForce * Vector3.back);
+	}
+
+	public void MoveToContinuePosition()
+	{
+		_rigidBody.velocity = Vector3.zero;
+		MoveBallToNearestPillar();
+
+		_canMove = true;
+
+		gameObject.SetActive(true);
+	}
+
+	private void MoveBallToNearestPillar()
+	{
+		foreach (var pillar in PillarsPool.ActivePillars)
+		{
+			if (transform.position.x + 1.0f < pillar.transform.position.x)
+			{
+				transform.position = new Vector2(pillar.transform.position.x, _initialYPosition);
+				break;
+			}
+		}
 	}
 
 	private void RestartStartedMoveTime()

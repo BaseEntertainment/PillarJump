@@ -35,6 +35,11 @@ public class PopupMoveAnimation : MonoBehaviour
 		}
 	}
 
+	private void OnDisable()
+	{
+		_rectTransform.DOKill();
+	}
+
 	private void SetDirection()
 	{
 		switch (_appearsFrom)

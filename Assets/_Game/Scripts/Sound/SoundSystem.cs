@@ -12,8 +12,11 @@ public class SoundSystem : MonoBehaviour
 	[SerializeField] private AudioSource _jumpSound;
 	[SerializeField] private Vector2 _jumpVolumeRange;
 
+	[SerializeField, Space(5)] private AudioSource _crashSound;
+
 	[Header("UI"), Space(5)]
 	[SerializeField] private AudioSource _clickSound;
+	[SerializeField] private AudioSource _countDown;
 
 	private static SoundSystem _instance;
 
@@ -82,6 +85,46 @@ public class SoundSystem : MonoBehaviour
 		}
 
 		_instance._clickSound.Play();
+	}
+
+	public static void PlayCountDownSound()
+	{
+		if (_instance == null)
+		{
+			return;
+		}
+
+		if (GameSettings.SoundFXEnabled == false)
+		{
+			return;
+		}
+
+		if (_instance._countDown == null)
+		{
+			return;
+		}
+
+		_instance._countDown.Play();
+	}
+
+	public static void PlayCrashSound()
+	{
+		if (_instance == null)
+		{
+			return;
+		}
+
+		if (GameSettings.SoundFXEnabled == false)
+		{
+			return;
+		}
+
+		if (_instance._crashSound == null)
+		{
+			return;
+		}
+
+		_instance._crashSound.Play();
 	}
 
 	private void UpdateBackgroundMusicState()

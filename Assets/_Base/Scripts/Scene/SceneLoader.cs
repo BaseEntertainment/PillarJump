@@ -41,6 +41,11 @@ public class SceneLoader : MonoBehaviour
 		StartLoading(previousSceneIndex);
 	}
 
+	public void RestartScene()
+	{
+		StartLoading(SceneManager.GetActiveScene().buildIndex);
+	}
+
 	private void StartLoading(int scenebuildIndex)
 	{
 		StartCoroutine(LoadSceneAsync(scenebuildIndex));
