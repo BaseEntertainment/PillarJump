@@ -123,7 +123,7 @@ public class Ball : MonoBehaviour
 	{
 		foreach (var pillar in PillarsPool.ActivePillars)
 		{
-			if (transform.position.x + 1.0f < pillar.transform.position.x)
+			if (transform.position.x < pillar.transform.position.x)
 			{
 				transform.position = new Vector2(pillar.transform.position.x, _initialYPosition);
 				break;

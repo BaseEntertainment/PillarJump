@@ -16,6 +16,11 @@ public class Pillar : MonoBehaviour
 
 	public void DoMove()
 	{
-		transform.DOMoveY(_animationYEndPosition, _animationDuration);
+		transform.DOMoveY(_animationYEndPosition, _animationDuration).OnComplete(OnCompleteMoveAnimation);
+	}
+
+	private void OnCompleteMoveAnimation()
+	{
+		PillarsPool.Destroy(this);
 	}
 }

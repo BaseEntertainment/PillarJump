@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ContinuePanel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private GameUI _gameUI;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void OnClickContinue()
+	{
+		AdMediation.Instance.ShowRewardedVideo(OnRewardedVideoFinished);
+	}
+
+	private void OnRewardedVideoFinished()
+	{
+		_gameUI.ShowCountDownPanel();
+	}
 }

@@ -16,6 +16,7 @@ public class SoundSystem : MonoBehaviour
 
 	[Header("UI"), Space(5)]
 	[SerializeField] private AudioSource _clickSound;
+	[SerializeField] private AudioSource _notification;
 	[SerializeField] private AudioSource _countDown;
 
 	private static SoundSystem _instance;
@@ -125,6 +126,26 @@ public class SoundSystem : MonoBehaviour
 		}
 
 		_instance._crashSound.Play();
+	}
+
+	public static void PlayNotificationSound()
+	{
+		if (_instance == null)
+		{
+			return;
+		}
+
+		if (GameSettings.SoundFXEnabled == false)
+		{
+			return;
+		}
+
+		if (_instance._notification == null)
+		{
+			return;
+		}
+
+		_instance._notification.Play();
 	}
 
 	private void UpdateBackgroundMusicState()

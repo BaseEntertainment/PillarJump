@@ -4,36 +4,46 @@ public class GameUI : MonoBehaviour
 {
 	[Header("Panels"), Space(5)]
 	[SerializeField] private PanelMain _mainPanel;
+	[SerializeField] private GameplayPanel _gameplayPanel;
 	[SerializeField] private GameOverPanel _gameOverPanel;
 	[SerializeField] private ContinuePanel _continuePanel;
 	[SerializeField] private CountDownPanel _countDownPanel;
 
-	[Header("PLayer Score"), Space(5)]
+	[Header("Player Score"), Space(5)]
 	[SerializeField] private PlayerScoreSystem _playerScore;
-	[SerializeField, Range(0, 100)] private int _minScoreToShowContinuePanel = 50;
 
-	private bool _isSecondTry;
+	[Header("Environment"), Space(5)]
+	[SerializeField] private MoveTutorial _moveTutorial;
 
-	private void OnEnable()
+	public void SwitchToGameplay()
 	{
-		Ball.EnteredDangerZone += OnBallEnteredDangerZone;
+		SetActivateMainPanel(false);
+
+		SetActivateMoveTutorial(true);
+		SetActivateGameplayPanel(true);
 	}
 
-	private void OnDisable()
+	public void UpdateScore(int score) => _gameplayPanel.UpdateScore(score);
+
+	public void ShowContinuePanel() => _continuePanel.gameObject.SetActive(true);
+
+	public void ShowCountDownPanel()
 	{
-		Ball.EnteredDangerZone -= OnBallEnteredDangerZone;
+		_continuePanel.gameObject.SetActive(false);
+		_countDownPanel.gameObject.SetActive(true);
 	}
 
-	private void OnBallEnteredDangerZone()
+	public void ShowGameOverPanel()
 	{
-		if (_isSecondTry == false && _playerScore.CurrentScore >= _minScoreToShowContinuePanel)
-		{
-			_continuePanel.gameObject.SetActive(true);
-			_isSecondTry = true;
-		}
-		else
-		{
-			_gameOverPanel.gameObject.SetActive(true);
-		}
+		SetActivateGameplayPanel(false);
+		SetActivateGameOverPanel(true);
 	}
+
+	private void SetActivateGameplayPanel(bool active) => _gameplayPanel.gameObject.SetActive(active);
+
+	private void SetActivateMoveTutorial(bool active) => _moveTutorial.gameObject.SetActive(active);
+
+	private void SetActivateMainPanel(bool active) => _mainPanel.gameObject.SetActive(active);
+
+	private void SetActivateGameOverPanel(bool active) => _gameOverPanel.gameObject.SetActive(active);
 }

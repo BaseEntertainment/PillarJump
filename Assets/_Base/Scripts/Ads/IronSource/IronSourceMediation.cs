@@ -1,31 +1,14 @@
 using System;
 using UnityEngine;
 
-public sealed class IronSourceMediation : MonoBehaviour, IAdMediation
+public sealed class IronSourceMediation : AdMediation
 {
-	[Header("API Keys"), Space(5)]
-	[SerializeField] private string _appKeyAndroid;
-	[SerializeField] private string _appKeyIOS;
-
-	[Header("Initialization"), Space(5)]
-	[SerializeField] private bool _initializeOnAwake = true;
-
-	public bool IsRewardedVideoAvailable => IronSource.Agent.isRewardedVideoAvailable();
-	public bool IsInterstitialReady => IronSource.Agent.isInterstitialReady();
-
-	public string AppKey { get; private set; }
+	public override bool IsRewardedVideoAvailable => IronSource.Agent.isRewardedVideoAvailable();
+	public override bool IsInterstitialReady => IronSource.Agent.isInterstitialReady();
 
 	private Action _tempOnRewardedVideoAdRewarded;
 
 	void OnApplicationPause(bool isPaused) => IronSource.Agent.onApplicationPause(isPaused);
-
-	private void Awake()
-	{
-		if (_initializeOnAwake)
-		{
-			Initialize();
-		}
-	}
 
 	private void OnEnable()
 	{
@@ -45,36 +28,24 @@ public sealed class IronSourceMediation : MonoBehaviour, IAdMediation
 		IronSourceInterstitialEvents.onAdClosedEvent -= OnInterstitialAdClosed;
 	}
 
-	public void Initialize()
+	public override void Initialize()
 	{
-		SetAppKey();
+		base.Initialize();
 
 		IronSource.Agent.validateIntegration();
 		IronSource.Agent.shouldTrackNetworkState(true);
 		IronSource.Agent.init(AppKey);
 	}
 
-	public void ShowBanner()
-	{
-		IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
-	}
+	public override void ShowBanner() => IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
 
-	public void HideBanner()
-	{
-		IronSource.Agent.destroyBanner();
-	}
+	public override void HideBanner() => IronSource.Agent.destroyBanner();
 
-	public void DisplayLoadedBanner()
-	{
-		IronSource.Agent.displayBanner();
-	}
+	public void DisplayLoadedBanner() => IronSource.Agent.displayBanner();
 
-	public void HideLoadedBanner()
-	{
-		IronSource.Agent.hideBanner();
-	}
+	public void HideLoadedBanner() => IronSource.Agent.hideBanner();
 
-	public void ShowInterstitial()
+	public override void ShowInterstitial()
 	{
 		if (IsInterstitialReady)
 		{
@@ -91,7 +62,7 @@ public sealed class IronSourceMediation : MonoBehaviour, IAdMediation
 		}
 	}
 
-	public void ShowRewardedVideo(Action onRewardedVideoAdRewarded)
+	public override void ShowRewardedVideo(Action onRewardedVideoAdRewarded)
 	{
 		if (IsRewardedVideoAvailable)
 		{
@@ -99,20 +70,6 @@ public sealed class IronSourceMediation : MonoBehaviour, IAdMediation
 
 			IronSource.Agent.showRewardedVideo();
 		}
-	}
-
-	public void SetConsent(bool consent)
-	{
-		IronSource.Agent.setConsent(consent);
-	}
-
-	private void SetAppKey()
-	{
-#if UNITY_ANDROID
-		AppKey = _appKeyAndroid;
-#elif UNITY_IOS
-		AppKey = _appKeyIOS;
-#endif
 	}
 
 	private void OnInitializationFinished()
@@ -128,13 +85,9 @@ public sealed class IronSourceMediation : MonoBehaviour, IAdMediation
 		_tempOnRewardedVideoAdRewarded = null;
 	}
 
-	private void OnInterstitialAdClosed(IronSourceAdInfo info)
-	{
-		LoadInterstitial();
-	}
+	private void OnInterstitialAdClosed(IronSourceAdInfo info) => LoadInterstitial();
 
-	private void LoadInterstitial()
-	{
-		IronSource.Agent.loadInterstitial();
-	}
+	private void LoadInterstitial() => IronSource.Agent.loadInterstitial();
+
+	public override void SetConsent(bool consent) => IronSource.Agent.setConsent(consent);
 }

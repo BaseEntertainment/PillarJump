@@ -1,7 +1,6 @@
 using OPS.AntiCheat.Field;
 using OPS.AntiCheat.Prefs;
 using System;
-using TMPro;
 using UnityEngine;
 
 public class PlayerScoreSystem : MonoBehaviour
@@ -14,28 +13,46 @@ public class PlayerScoreSystem : MonoBehaviour
 	private const int DEFAULT_SCORE_VALUE = 0;
 	private const string PLAYER_PREF_SCORE_BEST = "SCORE_BEST";
 
-	private int _lastPillarIndex;
-
-	[SerializeField] private TMP_Text _scoreText;
-	[SerializeField, Range(1, 100)] private int _multiplier = 5;
+	[SerializeField] private GameUI _gameUI;
+	[SerializeField, Range(1, 100)] private int _scoreMultiplier = 5;
+	[SerializeField, Range(0, 100)] private int _minScoreToShowContinuePanel = 50;
 
 	public static event Action NewRecord;
+
+	private int _lastPillarIndex;
+	private bool _isSecondTry;
 
 	private void OnEnable()
 	{
 		Ball.JumpedOnPillar += OnJumpedNewPillar;
-		Ball.EnteredDangerZone += SaveRecordScorePlayerPrefs;
+		Ball.EnteredDangerZone += OnBallEnteredDangerZone;
 	}
 
 	private void OnDisable()
 	{
 		Ball.JumpedOnPillar -= OnJumpedNewPillar;
-		Ball.EnteredDangerZone -= SaveRecordScorePlayerPrefs;
+		Ball.EnteredDangerZone -= OnBallEnteredDangerZone;
 	}
 
 	private void Awake()
 	{
 		LoadBestScoreFromPlayerPrefs();
+	}
+
+	private void OnBallEnteredDangerZone()
+	{
+		SaveRecordScorePlayerPrefs();
+
+		if (_isSecondTry == false && CurrentScore >= _minScoreToShowContinuePanel && AdMediation.Instance.IsRewardedVideoAvailable)
+		{
+			_isSecondTry = true;
+
+			_gameUI.ShowContinuePanel();
+		}
+		else
+		{
+			_gameUI.ShowGameOverPanel();
+		}
 	}
 
 	private void LoadBestScoreFromPlayerPrefs()
@@ -53,13 +70,13 @@ public class PlayerScoreSystem : MonoBehaviour
 
 	private void UpdateCurrentScore(Pillar pillar)
 	{
-		CurrentScore += (pillar.Index - _lastPillarIndex) * _multiplier;
+		CurrentScore += (pillar.Index - _lastPillarIndex) * _scoreMultiplier;
 		_lastPillarIndex = pillar.Index;
 	}
 
 	private void UpdateUI()
 	{
-		_scoreText.text = CurrentScore.ToString();
+		_gameUI.UpdateScore(CurrentScore);
 	}
 
 	private void UpdateRecordScore()
