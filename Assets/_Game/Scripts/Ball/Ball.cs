@@ -75,7 +75,7 @@ public class Ball : MonoBehaviour
 			return;
 		}
 
-		SoundSystem.PlayJumpSound();
+		SoundSystem.PlayBounceSound();
 
 		if (collision.gameObject.TryGetComponent(out Pillar pillar) == false)
 		{

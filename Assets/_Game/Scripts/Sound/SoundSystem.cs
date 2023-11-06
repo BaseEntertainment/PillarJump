@@ -9,8 +9,8 @@ public class SoundSystem : MonoBehaviour
 	[SerializeField] private AudioSource _windSound;
 
 	[Header("Ball"), Space(5)]
-	[SerializeField] private AudioSource _jumpSound;
-	[SerializeField] private Vector2 _jumpVolumeRange;
+	[SerializeField] private AudioSource _bounceSound;
+	[SerializeField] private Vector2 _bounceVolumeRange = new Vector2(0.2f, 0.3f);
 
 	[SerializeField, Space(5)] private AudioSource _crashSound;
 
@@ -47,7 +47,7 @@ public class SoundSystem : MonoBehaviour
 		UpdateWindSoundState();
 	}
 
-	public static void PlayJumpSound()
+	public static void PlayBounceSound()
 	{
 		if (_instance == null)
 		{
@@ -59,13 +59,13 @@ public class SoundSystem : MonoBehaviour
 			return;
 		}
 
-		if (_instance._jumpSound == null)
+		if (_instance._bounceSound == null)
 		{
 			return;
 		}
 
-		_instance._jumpSound.volume = Random.Range(_instance._jumpVolumeRange.x, _instance._jumpVolumeRange.y);
-		_instance._jumpSound.Play();
+		_instance._bounceSound.volume = Random.Range(_instance._bounceVolumeRange.x, _instance._bounceVolumeRange.y);
+		_instance._bounceSound.Play();
 	}
 
 	public static void PlayClickSound()

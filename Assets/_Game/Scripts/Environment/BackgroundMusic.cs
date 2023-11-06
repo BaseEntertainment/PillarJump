@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class BackgroundMusic : MonoBehaviour
 {
-	[SerializeField, Range(0, 2)] private float _volumeTransitionSpeed = 2.0f;
+	[SerializeField] private bool _smothStart = true;
+	[SerializeField, Range(0, 10)] private float _volumeTransitionSpeed = 2.0f;
 
 	private AudioSource _audioSource;
 
@@ -19,13 +20,23 @@ public class BackgroundMusic : MonoBehaviour
 
 	private void OnEnable()
 	{
-		float valueToTween = 0;
+		if (_smothStart == false)
+		{
+			return;
+		}
 
-		DOTween.To(() => valueToTween, x => valueToTween = x, _initialVolume, _volumeTransitionSpeed).OnUpdate(() => UpdateVolume(valueToTween));
+		SmoothStartAudio();
 	}
 
 	private void UpdateVolume(float volume)
 	{
 		_audioSource.volume = volume;
+	}
+
+	private void SmoothStartAudio()
+	{
+		float valueToTween = 0;
+
+		DOTween.To(() => valueToTween, x => valueToTween = x, _initialVolume, _volumeTransitionSpeed).OnUpdate(() => UpdateVolume(valueToTween));
 	}
 }

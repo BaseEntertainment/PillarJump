@@ -29,6 +29,8 @@ public class GameUI : MonoBehaviour
 
 	public void ShowCountDownPanel()
 	{
+		SetActivateGameplayPanel(true);
+		SetActivateGameOverPanel(false);
 		_continuePanel.gameObject.SetActive(false);
 		_countDownPanel.gameObject.SetActive(true);
 	}
@@ -39,11 +41,11 @@ public class GameUI : MonoBehaviour
 		SetActivateGameOverPanel(true);
 	}
 
-	private void SetActivateGameplayPanel(bool active) => _gameplayPanel.gameObject.SetActive(active);
+	public void SetActivateGameplayPanel(bool active) => _gameplayPanel.gameObject.SetActive(active);
 
-	private void SetActivateMoveTutorial(bool active) => _moveTutorial.gameObject.SetActive(active);
+	public void SetActivateMoveTutorial(bool active) => _moveTutorial.gameObject.SetActive(active);
 
-	private void SetActivateMainPanel(bool active) => _mainPanel.gameObject.SetActive(active);
+	public void SetActivateMainPanel(bool active) => _mainPanel.gameObject.SetActive(active);
 
-	private void SetActivateGameOverPanel(bool active) => _gameOverPanel.gameObject.SetActive(active);
+	public void SetActivateGameOverPanel(bool active) => _gameOverPanel.gameObject.SetActive(active);
 }
