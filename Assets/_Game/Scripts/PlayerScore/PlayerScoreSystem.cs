@@ -18,6 +18,9 @@ public class PlayerScoreSystem : MonoBehaviour
 	[SerializeField, Range(0, 100)] private int _minScoreToShowContinuePanel = 50;
 
 	public static event Action NewRecord;
+	public static event Action<int> JumpedOverPillars;
+	public static event Action<int> ScoreUpdated;
+	public static event Action<int> DistanceUpdated;
 
 	private int _lastPillarIndex;
 	private bool _isSecondTry;
@@ -70,8 +73,17 @@ public class PlayerScoreSystem : MonoBehaviour
 
 	private void UpdateCurrentScore(Pillar pillar)
 	{
-		CurrentScore += (pillar.Index - _lastPillarIndex) * _scoreMultiplier;
+		var difference = pillar.Index - _lastPillarIndex;
+
+		CurrentScore += difference * _scoreMultiplier;
 		_lastPillarIndex = pillar.Index;
+
+		ScoreUpdated?.Invoke(CurrentScore);
+
+		if (difference > 1)
+		{
+			JumpedOverPillars?.Invoke(difference - 1);
+		}
 	}
 
 	private void UpdateUI()
@@ -90,6 +102,8 @@ public class PlayerScoreSystem : MonoBehaviour
 				IsRecordBeated = true;
 
 				NewRecord?.Invoke();
+
+				_gameUI.ShowNotificationPopup("New record!");
 			}
 		}
 	}
@@ -97,17 +111,13 @@ public class PlayerScoreSystem : MonoBehaviour
 	private void UpdatePassedDistance(Pillar pillar)
 	{
 		PassedDistance = (int)pillar.transform.position.x;
+
+		DistanceUpdated?.Invoke(PassedDistance);
 	}
 
 	private void SaveRecordScorePlayerPrefs()
 	{
 		ProtectedPlayerPrefs.SetInt(PLAYER_PREF_SCORE_BEST, RecordScore);
 		ProtectedPlayerPrefs.Save();
-	}
-
-	[ContextMenu("Delete Record")]
-	private void ResetRecord()
-	{
-		ProtectedPlayerPrefs.DeleteKey(PLAYER_PREF_SCORE_BEST);
 	}
 }

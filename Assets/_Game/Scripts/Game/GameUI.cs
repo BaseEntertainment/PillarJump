@@ -15,6 +15,9 @@ public class GameUI : MonoBehaviour
 	[Header("Environment"), Space(5)]
 	[SerializeField] private MoveTutorial _moveTutorial;
 
+	[Header("Notification"), Space(5)]
+	[SerializeField] private NotificationPopup _notificationPopup;
+
 	public void SwitchToGameplay()
 	{
 		SetActivateMainPanel(false);
@@ -48,4 +51,9 @@ public class GameUI : MonoBehaviour
 	public void SetActivateMainPanel(bool active) => _mainPanel.gameObject.SetActive(active);
 
 	public void SetActivateGameOverPanel(bool active) => _gameOverPanel.gameObject.SetActive(active);
+
+	public void ShowNotificationPopup(string text, Sprite icon = null)
+	{
+		_notificationPopup.Show(text, icon);
+	}
 }
