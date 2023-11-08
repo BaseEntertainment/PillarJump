@@ -14228,7 +14228,6 @@ GameObject:
   - component: {fileID: 1614276352}
   - component: {fileID: 1614276355}
   - component: {fileID: 1614276353}
-  - component: {fileID: 1614276354}
   m_Layer: 5
   m_Name: Popup_Notification
   m_TagString: Untagged
@@ -14283,18 +14282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 3
---- !u!114 &1614276354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614276350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6c888adc31983b41a8847ffaecd08d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1614276355
 MonoBehaviour:
   m_ObjectHideFlags: 0

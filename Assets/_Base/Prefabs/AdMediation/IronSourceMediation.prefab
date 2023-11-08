@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb1667876ceca84380946a259b51025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _appKeyAndroid: 85460dcd
-  _appKeyIOS: 8545d445
+  _appKeyAndroid: 1c6359f7d
+  _appKeyIOS: 
   _initializeOnAwake: 1
+  _dontDestroyOnLoad: 1
