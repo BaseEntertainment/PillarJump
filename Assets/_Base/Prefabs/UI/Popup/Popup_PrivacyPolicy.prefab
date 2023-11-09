@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158b91a3770a1644593e07feeed770a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _link: https://www.google.com
+  _link: https://sites.google.com/view/base-entertainment-policy
 --- !u!1 &1602156684646035255
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158b91a3770a1644593e07feeed770a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _link: https://www.google.com
+  _link: https://sites.google.com/view/base-entertainment-terms
 --- !u!1 &4238396499174604953
 GameObject:
   m_ObjectHideFlags: 0
