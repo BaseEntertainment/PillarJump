@@ -148,9 +148,39 @@ public class SoundSystem : MonoBehaviour
 		_instance._notification.Play();
 	}
 
+	public static void StopBackgroundMusic()
+	{
+		if (_instance == null)
+		{
+			return;
+		}
+
+		_instance.SetActivateBackgroundMusic(false);
+	}
+
+	public static void PlayBackgroundMusic()
+	{
+		if (_instance == null)
+		{
+			return;
+		}
+
+		if (GameSettings.BackgroundMusicEnabled == false)
+		{
+			return;
+		}
+
+		_instance.SetActivateBackgroundMusic(true);
+	}
+
 	private void UpdateBackgroundMusicState()
 	{
-		_backgroundMusic.gameObject.SetActive(GameSettings.BackgroundMusicEnabled);
+		SetActivateBackgroundMusic(GameSettings.BackgroundMusicEnabled);
+	}
+
+	private void SetActivateBackgroundMusic(bool active)
+	{
+		_backgroundMusic.gameObject.SetActive(active);
 	}
 
 	private void UpdateWindSoundState()

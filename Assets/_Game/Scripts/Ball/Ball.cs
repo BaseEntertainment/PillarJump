@@ -72,6 +72,8 @@ public class Ball : MonoBehaviour
 
 			VibrationSystem.LightImpact();
 
+			SoundSystem.StopBackgroundMusic();
+
 			return;
 		}
 
@@ -117,6 +119,8 @@ public class Ball : MonoBehaviour
 		_canMove = true;
 
 		gameObject.SetActive(true);
+
+		SoundSystem.PlayBackgroundMusic();
 	}
 
 	private void MoveBallToNearestPillar()

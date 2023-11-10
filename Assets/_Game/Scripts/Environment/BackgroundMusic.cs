@@ -16,6 +16,8 @@ public class BackgroundMusic : MonoBehaviour
 		_audioSource = GetComponent<AudioSource>();
 
 		_initialVolume = _audioSource.volume;
+
+		_audioSource.volume = 0;
 	}
 
 	private void OnEnable()
@@ -24,6 +26,8 @@ public class BackgroundMusic : MonoBehaviour
 		{
 			return;
 		}
+
+		_audioSource.volume = 0;
 
 		SmoothStartAudio();
 	}
