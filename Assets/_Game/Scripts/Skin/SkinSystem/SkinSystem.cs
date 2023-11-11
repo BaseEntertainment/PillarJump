@@ -127,4 +127,11 @@ public class SkinSystem : MonoBehaviour
 		ProtectedPlayerPrefs.SetInt(PLAYER_PREF_SELECTED_BALL_SKIN_ID, SelectedBallSkinID);
 		ProtectedPlayerPrefs.Save();
 	}
+
+	[ContextMenu("Unlock all skins")]
+	private void UnlockAllSkins()
+	{
+		_openedBallSkinIDs = _skinData.Balls.Select(x => x.ID).ToList();
+		SaveOpenedBallSkinIDs();
+	}
 }
