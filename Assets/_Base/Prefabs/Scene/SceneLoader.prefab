@@ -239,7 +239,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4b4fd73a777b66541b61dc68e4a8b6a0, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 2
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -295,4 +295,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transitionAnimator: {fileID: 1887210811581821652}
   _transitionTriggerName: Start
-  _loadSceneDelay: 1
+  _loadSceneDelay: 0

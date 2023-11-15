@@ -10125,16 +10125,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 926069951625447833, guid: e8cb3e5c4c8cfef4cb0b192cc049b0e1,
-        type: 3}
-      propertyPath: _loadSceneDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1887210811581821652, guid: e8cb3e5c4c8cfef4cb0b192cc049b0e1,
-        type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3196304786015222130, guid: e8cb3e5c4c8cfef4cb0b192cc049b0e1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10189,11 +10179,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SceneLoader
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208717484642912782, guid: e8cb3e5c4c8cfef4cb0b192cc049b0e1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
