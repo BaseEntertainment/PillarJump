@@ -10130,6 +10130,11 @@ PrefabInstance:
       propertyPath: _loadSceneDelay
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1887210811581821652, guid: e8cb3e5c4c8cfef4cb0b192cc049b0e1,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3196304786015222130, guid: e8cb3e5c4c8cfef4cb0b192cc049b0e1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11739,10 +11744,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 82014608}
+  - {fileID: 1614276351}
   - {fileID: 2111963601}
   - {fileID: 619856989}
   - {fileID: 1922412796}
-  - {fileID: 1614276351}
   - {fileID: 378415179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17621,5 +17626,5 @@ SceneRoots:
   - {fileID: 965053696}
   - {fileID: 1117013485}
   - {fileID: 1600519413}
-  - {fileID: 7155050583911733663}
   - {fileID: 1554114166}
+  - {fileID: 7155050583911733663}
