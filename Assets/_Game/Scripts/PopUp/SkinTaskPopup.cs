@@ -11,6 +11,7 @@ public class SkinTaskPopup : MonoBehaviour
 	public void Show(string text)
 	{
 		_text.text = text;
+
 		gameObject.SetActive(true);
 
 		if (_autoHide == false)

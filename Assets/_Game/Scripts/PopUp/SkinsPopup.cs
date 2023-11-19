@@ -87,7 +87,7 @@ public class SkinsPopup : MonoBehaviour
 	{
 		var skin = _skinSystem.SkinData.Balls.FirstOrDefault(x => x.ID == item.ID);
 
-		var taskText = skin.TaskToOpenDescription;
+		var taskText = LocalizationSystem.GetTranslation(skin.TaskToOpenDescription);
 
 		if (skin.TaskToOpenBallSkinListener is ISavedSkinTaskDataToReach additionalInfo)
 		{

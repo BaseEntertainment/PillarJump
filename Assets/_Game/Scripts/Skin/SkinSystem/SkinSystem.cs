@@ -94,7 +94,7 @@ public class SkinSystem : MonoBehaviour
 
 		var icon = _skinData.Balls.FirstOrDefault(x => x.ID == skinID)?.Image;
 
-		_gameUI.ShowNotificationPopup("New ball!", icon);
+		_gameUI.ShowNotificationPopup(LocalizedTextKey.NEW_BALL.ToString(), icon);
 	}
 
 	private void LoadSelectedBallSkinID()

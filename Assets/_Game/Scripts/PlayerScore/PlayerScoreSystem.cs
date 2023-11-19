@@ -103,7 +103,7 @@ public class PlayerScoreSystem : MonoBehaviour
 
 				NewRecord?.Invoke();
 
-				_gameUI.ShowNotificationPopup("New record!");
+				_gameUI.ShowNotificationPopup(LocalizedTextKey.NEW_BEST_RECORD.ToString());
 			}
 		}
 	}

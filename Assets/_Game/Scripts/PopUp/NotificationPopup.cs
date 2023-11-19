@@ -22,7 +22,9 @@ public class NotificationPopup : MonoBehaviour
 
 	private void SetText(string text)
 	{
-		_text.text = text;
+		var localizedText = LocalizationSystem.GetTranslation(text);
+
+		_text.text = localizedText;
 	}
 
 	private void SetIcon(Sprite icon)

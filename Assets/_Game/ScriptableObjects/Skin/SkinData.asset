@@ -23,7 +23,7 @@ MonoBehaviour:
   - _name: Default White Lines
     _id: 1
     _image: {fileID: 21300000, guid: 4003799c67b1cfa468f13ed9e613b350, type: 3}
-    _taskToOpenDescription: Score 50 points.
+    _taskToOpenDescription: SKIN_TASK_DESC_DEFAULT_WHITE_LINES
     _prefab: {fileID: -5982824816892763844, guid: cc1ac48ab2fd9954bbf5198d16e08771,
       type: 3}
     _taksToOpenListener: {fileID: 2188602993630946595, guid: ddd6479f49450b54cac667a6709eb111,
@@ -31,7 +31,7 @@ MonoBehaviour:
   - _name: Green
     _id: 2
     _image: {fileID: 21300000, guid: 9fed0579eefb69b4b9eb593712195c46, type: 3}
-    _taskToOpenDescription: Score 500 points.
+    _taskToOpenDescription: SKIN_TASK_DESC_GREEN
     _prefab: {fileID: 5876062176762756761, guid: 10ff500d43c646643a3864b01016591b,
       type: 3}
     _taksToOpenListener: {fileID: 2188602993630946595, guid: ecc61e4dc8ac41c4d9faf46c4ac5e5f8,
@@ -39,7 +39,7 @@ MonoBehaviour:
   - _name: Pink
     _id: 3
     _image: {fileID: 21300000, guid: 452e2b674504220429b417d90eb96b43, type: 3}
-    _taskToOpenDescription: Reach 100m.
+    _taskToOpenDescription: SKIN_TASK_DESC_PINK
     _prefab: {fileID: 7538103048301960618, guid: e70a06369f8a67145bbeea29745bd1b3,
       type: 3}
     _taksToOpenListener: {fileID: 9137902490271777338, guid: 68e841d6aeccbc149a274de45ab9fe1f,
@@ -47,7 +47,7 @@ MonoBehaviour:
   - _name: Light Blue
     _id: 4
     _image: {fileID: 21300000, guid: e29eaed947a7e03499efa00d40f81b46, type: 3}
-    _taskToOpenDescription: Jump over 5 pillars in one game.
+    _taskToOpenDescription: SKIN_TASK_DESC_LIGHT_BLUE
     _prefab: {fileID: 1740393866359548563, guid: 61557ea7f3484954ea807ec4fc09c308,
       type: 3}
     _taksToOpenListener: {fileID: 1887195007162413246, guid: 99a7a2220a224c24d856b1ad8d54827e,
@@ -55,7 +55,7 @@ MonoBehaviour:
   - _name: Red
     _id: 5
     _image: {fileID: 21300000, guid: 35042514b5d2bf54bb185ed6ab26d601, type: 3}
-    _taskToOpenDescription: Reach 1 km.
+    _taskToOpenDescription: SKIN_TASK_DESC_RED
     _prefab: {fileID: -4081446451772195565, guid: 545aa053789cb81469cae563d3335f54,
       type: 3}
     _taksToOpenListener: {fileID: 464268783267195426, guid: b9291241e938ef042a99fe2c8b3ace76,
@@ -63,7 +63,7 @@ MonoBehaviour:
   - _name: Yellow
     _id: 6
     _image: {fileID: 21300000, guid: 94a5fb946a6d79c43ad4d03c6d26def2, type: 3}
-    _taskToOpenDescription: Score 1000 points.
+    _taskToOpenDescription: SKIN_TASK_DESC_YELLOW
     _prefab: {fileID: -6461150323260803369, guid: 9de27e8e1420e544b8721e921217c7d6,
       type: 3}
     _taksToOpenListener: {fileID: 3430762991398065771, guid: cc4585bf68bf5894a9ed6af70f87d8e6,
@@ -71,7 +71,7 @@ MonoBehaviour:
   - _name: Blue
     _id: 7
     _image: {fileID: 21300000, guid: 20519c80f9bf9e943a15257eb51cf17e, type: 3}
-    _taskToOpenDescription: Tap continue 1 time.
+    _taskToOpenDescription: SKIN_TASK_DESC_BLUE
     _prefab: {fileID: -8621166942187287794, guid: 6e4cb2eb198be4e429ee3f6eec542634,
       type: 3}
     _taksToOpenListener: {fileID: 4918796856612178179, guid: 5bce4380acb46f149b2e8d319b945089,
@@ -79,7 +79,7 @@ MonoBehaviour:
   - _name: Purple
     _id: 8
     _image: {fileID: 21300000, guid: 72d1c59d485fafa47a3012095717b019, type: 3}
-    _taskToOpenDescription: Tap continue 10 times.
+    _taskToOpenDescription: SKIN_TASK_DESC_PURPLE
     _prefab: {fileID: 6782368953191816039, guid: a4dbfcfa7a0f87f4da02be441107df16,
       type: 3}
     _taksToOpenListener: {fileID: 1653592861713219255, guid: aa2d3ef84e83d264aa5778782d8b0168,
@@ -87,7 +87,7 @@ MonoBehaviour:
   - _name: White
     _id: 9
     _image: {fileID: 21300000, guid: 297595e6dc48081468028ee38b4f3365, type: 3}
-    _taskToOpenDescription: Play the game 100 times.
+    _taskToOpenDescription: SKIN_TASK_DESC_WHITE
     _prefab: {fileID: 5971398120492080908, guid: 730b8ce488cfa634cad5b1caca73dbcb,
       type: 3}
     _taksToOpenListener: {fileID: 1899837744090131859, guid: 2f172b313e793f64db5af78908a28103,
@@ -95,7 +95,7 @@ MonoBehaviour:
   - _name: Gray
     _id: 10
     _image: {fileID: 21300000, guid: bd872f019f0a3de4393bab9b07a132f7, type: 3}
-    _taskToOpenDescription: Play the game 500 times.
+    _taskToOpenDescription: SKIN_TASK_DESC_GRAY
     _prefab: {fileID: -4797515276912178894, guid: a3c242c5ee81aa74499c4cf14d988846,
       type: 3}
     _taksToOpenListener: {fileID: 4733086888262581466, guid: f09f56a071030ab45bc52be7e05cc821,
@@ -103,7 +103,7 @@ MonoBehaviour:
   - _name: Black
     _id: 11
     _image: {fileID: 21300000, guid: 5ebcf46e60e7c5247843b791c8fda879, type: 3}
-    _taskToOpenDescription: Play the game 1000 times.
+    _taskToOpenDescription: SKIN_TASK_DESC_BLACK
     _prefab: {fileID: 7932485006117288676, guid: 79e94da82d69d584991fa5eadf65e01a,
       type: 3}
     _taksToOpenListener: {fileID: 2277995581742651070, guid: f35892debb87fb647a3f2c8c89343db5,
