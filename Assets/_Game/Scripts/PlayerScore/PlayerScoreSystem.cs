@@ -15,7 +15,7 @@ public class PlayerScoreSystem : MonoBehaviour
 
 	[SerializeField] private GameUI _gameUI;
 	[SerializeField, Range(1, 100)] private int _scoreMultiplier = 5;
-	[SerializeField, Range(0, 100)] private int _minScoreToShowContinuePanel = 50;
+	[SerializeField, Range(0, 300)] private int _minScoreToShowContinuePanel = 50;
 
 	public static event Action NewRecord;
 	public static event Action<int> JumpedOverPillars;
