@@ -854,11 +854,11 @@ PlayerSettings:
     PS5: TextMeshPro
     QNX: TextMeshPro
     Stadia: TextMeshPro
-    Standalone: MOREMOUNTAINS_NICEVIBRATIONS;TextMeshPro
+    Standalone: MOREMOUNTAINS_NICEVIBRATIONS;TextMeshPro;LEVELPLAY_DEPENDENCIES_INSTALLED
     VisionOS: TextMeshPro
     WebGL: TextMeshPro
     XboxOne: TextMeshPro
-    iPhone: TextMeshPro
+    iPhone: TextMeshPro;MOREMOUNTAINS_NICEVIBRATIONS;LEVELPLAY_DEPENDENCIES_INSTALLED
     tvOS: TextMeshPro
   additionalCompilerArguments: {}
   platformArchitecture: {}
