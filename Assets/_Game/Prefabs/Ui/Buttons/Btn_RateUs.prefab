@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6306077268737961874}
   - component: {fileID: 4565503077846092111}
   - component: {fileID: 2384808658016751051}
+  - component: {fileID: 5998765891433519263}
   m_Layer: 0
   m_Name: Btn_RateUs
   m_TagString: Untagged
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1a3d766705e8fce41bcaa2921051a083, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -136,6 +137,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linkAndroid: https://play.google.com/store/apps/details?id=com.base.pillarjump
   _linkIOS: https://apps.apple.com/app/pillar-jump-the-game/id6642670285
+--- !u!114 &5998765891433519263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273046041196434261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.19607843}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &6249822896559706485
 GameObject:
   m_ObjectHideFlags: 0

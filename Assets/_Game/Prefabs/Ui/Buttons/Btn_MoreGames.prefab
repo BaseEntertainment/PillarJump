@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6545692794090655557}
   - component: {fileID: 2026723973461467477}
   - component: {fileID: 8688214235992588382}
+  - component: {fileID: 5070553116142597711}
   m_Layer: 0
   m_Name: Btn_MoreGames
   m_TagString: Untagged
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1a3d766705e8fce41bcaa2921051a083, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -136,6 +137,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linkAndroid: https://play.google.com/store/apps/dev?id=5760919005484481462
   _linkIOS: https://apps.apple.com/developer/raul-davrishev/id1731060019
+--- !u!114 &5070553116142597711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673801023235732322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.19607843}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8111964495803998897
 GameObject:
   m_ObjectHideFlags: 0
