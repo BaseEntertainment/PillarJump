@@ -455,6 +455,30 @@ MonoBehaviour:
       - "\u0930\u094B\u0915\u0928\u0947 \u0915\u0947 \u0932\u093F\u090F \u091B\u094B\u0921\u093C\u0947\u0902"
       Flags: 000000000000
       Languages_Touch: []
+    - Term: MORE_GAMES
+      TermType: 0
+      Description: 
+      Languages:
+      - more games
+      - "\u0435\u0449\u0451 \u0438\u0433\u0440\u044B"
+      - mais jogos
+      - daha fazla oyun
+      - mehr Spiele
+      - "\u0905\u0927\u093F\u0915 \u0916\u0947\u0932"
+      Flags: 000000000000
+      Languages_Touch: []
+    - Term: RATE_US
+      TermType: 0
+      Description: 
+      Languages:
+      - rate us
+      - "\u043E\u0446\u0435\u043D\u0438\u0442\u0435 \u043D\u0430\u0441"
+      - avalie-nos
+      - "bizi de\u011Ferlendirin"
+      - Bewerten Sie uns
+      - "\u0939\u092E\u0947\u0902 \u0930\u0947\u091F\u093F\u0902\u0917 \u0926\u0947\u0902"
+      Flags: 000000000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
