@@ -1,55 +1,94 @@
+using com.unity3d.mediation;
 using System;
 using UnityEngine;
 
 public sealed class IronSourceMediation : AdMediation
 {
+	public override bool IsInterstitialReady => InterstitialAd.IsAdReady();
 	public override bool IsRewardedVideoAvailable => IronSource.Agent.isRewardedVideoAvailable();
-	public override bool IsInterstitialReady => IronSource.Agent.isInterstitialReady();
+
+	public LevelPlayInterstitialAd InterstitialAd { get; private set; }
+	public LevelPlayBannerAd BannerAd { get; private set; }
 
 	private Action _tempOnRewardedVideoAdRewarded;
 
-	void OnApplicationPause(bool isPaused) => IronSource.Agent.onApplicationPause(isPaused);
+	private void OnApplicationPause(bool isPaused)
+	{
+		IronSource.Agent.onApplicationPause(isPaused);
+	}
 
 	private void OnEnable()
 	{
+		if (Instance != this)
+		{
+			return;
+		}
+
 		IronSourceEvents.onSdkInitializationCompletedEvent += OnInitializationFinished;
-
 		IronSourceRewardedVideoEvents.onAdRewardedEvent += OnRewardedVideoAdRewarded;
-
-		IronSourceInterstitialEvents.onAdClosedEvent += OnInterstitialAdClosed;
 	}
 
 	private void OnDisable()
 	{
+		if (Instance != this)
+		{
+			return;
+		}
+
 		IronSourceEvents.onSdkInitializationCompletedEvent -= OnInitializationFinished;
-
 		IronSourceRewardedVideoEvents.onAdRewardedEvent -= OnRewardedVideoAdRewarded;
-
-		IronSourceInterstitialEvents.onAdClosedEvent -= OnInterstitialAdClosed;
 	}
 
+	#region Initialization
 	public override void Initialize()
 	{
 		base.Initialize();
 
+		InterstitialAd = new(nameof(InterstitialAd));
+		InterstitialAd.OnAdClosed += OnInterstitialAdClosed;
+
+		BannerAd = new(nameof(BannerAd), position: LevelPlayBannerPosition.BottomCenter, displayOnLoad: true);
+
 		IronSource.Agent.validateIntegration();
 		IronSource.Agent.shouldTrackNetworkState(true);
+
+		LevelPlay.OnInitSuccess += SdkInitializationCompletedEvent;
+		LevelPlay.OnInitFailed += SdkInitializationFailedEvent;
+
 		IronSource.Agent.init(AppKey);
 	}
 
-	public override void ShowBanner() => IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
+	public override void SetConsent(bool consent)
+	{
+		IronSource.Agent.setConsent(consent);
+	}
 
-	public override void HideBanner() => IronSource.Agent.destroyBanner();
+	private void OnInitializationFinished()
+	{
+		Debug.Log("IronSource: Initialization Finished.");
 
-	public void DisplayLoadedBanner() => IronSource.Agent.displayBanner();
+		LoadInterstitial();
+	}
 
-	public void HideLoadedBanner() => IronSource.Agent.hideBanner();
+	private void SdkInitializationCompletedEvent(LevelPlayConfiguration configuration)
+	{
+		Debug.Log("IronSource: Initialization Completed.");
 
+		LoadInterstitial();
+	}
+
+	private void SdkInitializationFailedEvent(LevelPlayInitError error)
+	{
+		Debug.LogWarning("IronSource: Initialization Failed.");
+	}
+	#endregion
+
+	#region Interstitial
 	public override void ShowInterstitial()
 	{
 		if (IsInterstitialReady)
 		{
-			IronSource.Agent.showInterstitial();
+			InterstitialAd.ShowAd();
 		}
 		else
 		{
@@ -61,7 +100,18 @@ public sealed class IronSourceMediation : AdMediation
 			}
 		}
 	}
+	private void LoadInterstitial()
+	{
+		InterstitialAd.LoadAd();
+	}
 
+	private void OnInterstitialAdClosed(LevelPlayAdInfo info)
+	{
+		LoadInterstitial();
+	}
+	#endregion
+
+	#region Rewarded
 	public override void ShowRewardedVideo(Action onRewardedVideoAdRewarded)
 	{
 		if (IsRewardedVideoAvailable)
@@ -72,22 +122,27 @@ public sealed class IronSourceMediation : AdMediation
 		}
 	}
 
-	private void OnInitializationFinished()
-	{
-		Debug.Log("IronSource: Initialization Finished.");
-
-		LoadInterstitial();
-	}
-
 	private void OnRewardedVideoAdRewarded(IronSourcePlacement placement, IronSourceAdInfo info)
 	{
 		_tempOnRewardedVideoAdRewarded?.Invoke();
 		_tempOnRewardedVideoAdRewarded = null;
 	}
+	#endregion
 
-	private void OnInterstitialAdClosed(IronSourceAdInfo info) => LoadInterstitial();
+	#region Banner
+	public void LoadBanner()
+	{
+		BannerAd.LoadAd();
+	}
 
-	private void LoadInterstitial() => IronSource.Agent.loadInterstitial();
+	public override void ShowBanner()
+	{
+		BannerAd.ShowAd();
+	}
 
-	public override void SetConsent(bool consent) => IronSource.Agent.setConsent(consent);
+	public override void HideBanner()
+	{
+		BannerAd.HideAd();
+	}
+	#endregion
 }
