@@ -66,9 +66,9 @@ public abstract class AdMediation : MonoBehaviour
 
 	public abstract void ShowBanner();
 
-	public abstract void ShowInterstitial();
+	public abstract bool TryShowInterstitial();
 
-	public abstract void ShowRewardedVideo(Action finished);
+	public abstract bool TryShowRewardedVideo(Action finished);
 
 	public abstract void SetConsent(bool consent);
 

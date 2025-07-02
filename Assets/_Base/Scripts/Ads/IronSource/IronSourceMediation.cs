@@ -83,23 +83,24 @@ public sealed class IronSourceMediation : AdMediation
 	{
 		_tempOnRewardedVideoAdRewarded?.Invoke();
 		_tempOnRewardedVideoAdRewarded = null;
+
+		LoadRewardedAd();
 	}
 
-	public override void ShowRewardedVideo(Action onRewardedVideoAdRewarded)
+	public override bool TryShowRewardedVideo(Action onRewardedVideoAdRewarded)
 	{
 		if (IsRewardedVideoAvailable)
 		{
 			_tempOnRewardedVideoAdRewarded = onRewardedVideoAdRewarded;
 			RewardedAd?.ShowAd();
+
+			return true;
 		}
 		else
 		{
 			LoadRewardedAd();
 
-			if (IsRewardedVideoAvailable)
-			{
-				ShowRewardedVideo(onRewardedVideoAdRewarded);
-			}
+			return false;
 		}
 	}
 
@@ -115,20 +116,19 @@ public sealed class IronSourceMediation : AdMediation
 		LoadInterstitial();
 	}
 
-	public override void ShowInterstitial()
+	public override bool TryShowInterstitial()
 	{
 		if (IsInterstitialReady)
 		{
 			InterstitialAd?.ShowAd();
+
+			return true;
 		}
 		else
 		{
 			LoadInterstitial();
 
-			if (IsInterstitialReady)
-			{
-				ShowInterstitial();
-			}
+			return false;
 		}
 	}
 

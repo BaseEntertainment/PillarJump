@@ -9,7 +9,7 @@ public class ContinuePanel : MonoBehaviour
 
 	public void OnClickContinue()
 	{
-		AdMediation.Instance.ShowRewardedVideo(OnRewardedVideoFinished);
+		AdMediation.Instance.TryShowRewardedVideo(OnRewardedVideoFinished);
 	}
 
 	private void OnRewardedVideoFinished()
