@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3656123377112880105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f125b68372e664253a2f306505f1d386, type: 3}
+  m_Script: {fileID: 11500000, guid: 00bff7ae85cd0f3489d44442bc72bddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7508120577521536131
@@ -86,10 +86,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7508120577521536131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fb1667876ceca84380946a259b51025, type: 3}
+  m_Script: {fileID: 11500000, guid: d1208279ac23d3a4b9bb7d240b23674d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _appKeyAndroid: 1c6359f7d
   _appKeyIOS: 1f5f211cd
+  _appKeyAndroid: 1c6359f7d
+  _IosRewardedAdUnitID: lai9u8rknzbenakj
+  _androidRewardedAdUnitID: 9vxhga7npgdxnslc
+  _IosInterstitialAdUnitID: 
+  _androidInterstitialAdUnitID: 
+  _androidBannerAdUnitID: 
+  _IosBannerAdUnitID: 
   _initializeOnAwake: 1
   _dontDestroyOnLoad: 1

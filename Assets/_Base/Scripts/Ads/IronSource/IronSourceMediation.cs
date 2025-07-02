@@ -1,94 +1,125 @@
-using com.unity3d.mediation;
 using System;
+using Unity.Services.LevelPlay;
 using UnityEngine;
 
 public sealed class IronSourceMediation : AdMediation
 {
-	public override bool IsInterstitialReady => InterstitialAd.IsAdReady();
-	public override bool IsRewardedVideoAvailable => IronSource.Agent.isRewardedVideoAvailable();
+	public override bool IsRewardedVideoAvailable => RewardedAd != null && RewardedAd.IsAdReady();
+	public override bool IsInterstitialReady => InterstitialAd != null && InterstitialAd.IsAdReady();
 
+	public LevelPlayRewardedAd RewardedAd { get; private set; }
 	public LevelPlayInterstitialAd InterstitialAd { get; private set; }
 	public LevelPlayBannerAd BannerAd { get; private set; }
 
 	private Action _tempOnRewardedVideoAdRewarded;
-
-	private void OnApplicationPause(bool isPaused)
-	{
-		IronSource.Agent.onApplicationPause(isPaused);
-	}
-
-	private void OnEnable()
-	{
-		if (Instance != this)
-		{
-			return;
-		}
-
-		IronSourceEvents.onSdkInitializationCompletedEvent += OnInitializationFinished;
-		IronSourceRewardedVideoEvents.onAdRewardedEvent += OnRewardedVideoAdRewarded;
-	}
-
-	private void OnDisable()
-	{
-		if (Instance != this)
-		{
-			return;
-		}
-
-		IronSourceEvents.onSdkInitializationCompletedEvent -= OnInitializationFinished;
-		IronSourceRewardedVideoEvents.onAdRewardedEvent -= OnRewardedVideoAdRewarded;
-	}
 
 	#region Initialization
 	public override void Initialize()
 	{
 		base.Initialize();
 
-		InterstitialAd = new(nameof(InterstitialAd));
-		InterstitialAd.OnAdClosed += OnInterstitialAdClosed;
+		if (string.IsNullOrEmpty(RewardedAdUnitID) == false)
+		{
+			RewardedAd = new(RewardedAdUnitID);
+			RewardedAd.OnAdLoaded += OnAdLoadedSuccessfully;
+			RewardedAd.OnAdLoadFailed += OnAdLoadFailed;
+			RewardedAd.OnAdRewarded += OnRewardedVideoAdRewarded;
+		}
 
-		BannerAd = new(nameof(BannerAd), position: LevelPlayBannerPosition.BottomCenter, displayOnLoad: true);
+		if (string.IsNullOrEmpty(InterstitialAdUnitID) == false)
+		{
+			InterstitialAd = new(InterstitialAdUnitID);
+			InterstitialAd.OnAdLoaded += OnAdLoadedSuccessfully;
+			InterstitialAd.OnAdLoadFailed += OnAdLoadFailed;
+			InterstitialAd.OnAdClosed += OnInterstitialAdClosed;
+		}
 
-		IronSource.Agent.validateIntegration();
-		IronSource.Agent.shouldTrackNetworkState(true);
+		if (string.IsNullOrEmpty(BannerAdUnitID) == false)
+		{
+			BannerAd = new(BannerAdUnitID, displayOnLoad: true);
+			BannerAd.OnAdLoaded += OnAdLoadedSuccessfully;
+			BannerAd.OnAdLoadFailed -= OnAdLoadFailed;
+		}
 
-		LevelPlay.OnInitSuccess += SdkInitializationCompletedEvent;
-		LevelPlay.OnInitFailed += SdkInitializationFailedEvent;
+		LevelPlay.OnInitSuccess += OnLevelPlayInitSuccess;
+		LevelPlay.OnInitFailed += OnLevelPlayInitFailed;
 
-		IronSource.Agent.init(AppKey);
+		LevelPlay.Init(AppKey);
 	}
 
 	public override void SetConsent(bool consent)
 	{
-		IronSource.Agent.setConsent(consent);
+		LevelPlay.SetConsent(consent);
 	}
 
-	private void OnInitializationFinished()
+	private void OnLevelPlayInitSuccess(LevelPlayConfiguration configuration)
 	{
-		Debug.Log("IronSource: Initialization Finished.");
+		Debug.Log("LevelPlay: Initialization success.");
 
+		LoadRewardedAd();
 		LoadInterstitial();
 	}
 
-	private void SdkInitializationCompletedEvent(LevelPlayConfiguration configuration)
+	private void OnLevelPlayInitFailed(LevelPlayInitError error)
 	{
-		Debug.Log("IronSource: Initialization Completed.");
-
-		LoadInterstitial();
-	}
-
-	private void SdkInitializationFailedEvent(LevelPlayInitError error)
-	{
-		Debug.LogWarning("IronSource: Initialization Failed.");
+		Debug.LogWarning("LevelPlay: Initialization Failed.");
 	}
 	#endregion
 
-	#region Interstitial
+	#region AdLoading
+	private void OnAdLoadedSuccessfully(LevelPlayAdInfo info)
+	{
+		Debug.Log($"OnRewardedAdLoaded ({info.AdFormat}): {info}");
+	}
+
+	private void OnAdLoadFailed(LevelPlayAdError error)
+	{
+		Debug.Log($"OnRewardedAdLoadFailed ({error.AdUnitId}): {error.ErrorMessage}");
+	}
+	#endregion
+
+	#region Rewarded Ad
+	private void OnRewardedVideoAdRewarded(LevelPlayAdInfo info, LevelPlayReward reward)
+	{
+		_tempOnRewardedVideoAdRewarded?.Invoke();
+		_tempOnRewardedVideoAdRewarded = null;
+	}
+
+	public override void ShowRewardedVideo(Action onRewardedVideoAdRewarded)
+	{
+		if (IsRewardedVideoAvailable)
+		{
+			_tempOnRewardedVideoAdRewarded = onRewardedVideoAdRewarded;
+			RewardedAd?.ShowAd();
+		}
+		else
+		{
+			LoadRewardedAd();
+
+			if (IsRewardedVideoAvailable)
+			{
+				ShowRewardedVideo(onRewardedVideoAdRewarded);
+			}
+		}
+	}
+
+	private void LoadRewardedAd()
+	{
+		RewardedAd?.LoadAd();
+	}
+	#endregion
+
+	#region Interstitial Ad
+	private void OnInterstitialAdClosed(LevelPlayAdInfo info)
+	{
+		LoadInterstitial();
+	}
+
 	public override void ShowInterstitial()
 	{
 		if (IsInterstitialReady)
 		{
-			InterstitialAd.ShowAd();
+			InterstitialAd?.ShowAd();
 		}
 		else
 		{
@@ -100,49 +131,27 @@ public sealed class IronSourceMediation : AdMediation
 			}
 		}
 	}
+
 	private void LoadInterstitial()
 	{
-		InterstitialAd.LoadAd();
-	}
-
-	private void OnInterstitialAdClosed(LevelPlayAdInfo info)
-	{
-		LoadInterstitial();
+		InterstitialAd?.LoadAd();
 	}
 	#endregion
 
-	#region Rewarded
-	public override void ShowRewardedVideo(Action onRewardedVideoAdRewarded)
+	#region Banner Ad
+	public void LoadBannerAd()
 	{
-		if (IsRewardedVideoAvailable)
-		{
-			_tempOnRewardedVideoAdRewarded = onRewardedVideoAdRewarded;
-
-			IronSource.Agent.showRewardedVideo();
-		}
-	}
-
-	private void OnRewardedVideoAdRewarded(IronSourcePlacement placement, IronSourceAdInfo info)
-	{
-		_tempOnRewardedVideoAdRewarded?.Invoke();
-		_tempOnRewardedVideoAdRewarded = null;
-	}
-	#endregion
-
-	#region Banner
-	public void LoadBanner()
-	{
-		BannerAd.LoadAd();
+		BannerAd?.LoadAd();
 	}
 
 	public override void ShowBanner()
 	{
-		BannerAd.ShowAd();
+		BannerAd?.ShowAd();
 	}
 
 	public override void HideBanner()
 	{
-		BannerAd.HideAd();
+		BannerAd?.HideAd();
 	}
 	#endregion
 }

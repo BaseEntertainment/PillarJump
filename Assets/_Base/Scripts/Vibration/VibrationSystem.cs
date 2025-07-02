@@ -1,94 +1,32 @@
-using MoreMountains.NiceVibrations;
+using Lofelt.NiceVibrations;
 
 public static class VibrationSystem
 {
-	public static void Selection()
+	public static void PlayPreset(HapticPatterns.PresetType type)
 	{
 		if (GameSettings.VibrationEnabled == false)
 		{
 			return;
 		}
 
-		MMVibrationManager.Haptic(HapticTypes.Selection);
+		HapticPatterns.PlayPreset(type);
 	}
 
-	public static void Success()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
+	public static void Selection() => PlayPreset(HapticPatterns.PresetType.Selection);
 
-		MMVibrationManager.Haptic(HapticTypes.Success);
-	}
+	public static void Success() => PlayPreset(HapticPatterns.PresetType.Success);
 
-	public static void Warning()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
+	public static void Warning() => PlayPreset(HapticPatterns.PresetType.Warning);
 
-		MMVibrationManager.Haptic(HapticTypes.Warning);
-	}
+	public static void Failure() => PlayPreset(HapticPatterns.PresetType.Failure);
 
-	public static void Failure()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
+	public static void LightImpact() => PlayPreset(HapticPatterns.PresetType.LightImpact);
 
-		MMVibrationManager.Haptic(HapticTypes.Failure);
-	}
+	public static void MediumImpact() => PlayPreset(HapticPatterns.PresetType.MediumImpact);
 
-	public static void LightImpact()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
+	public static void HeavyImpact() => PlayPreset(HapticPatterns.PresetType.HeavyImpact);
 
-		MMVibrationManager.Haptic(HapticTypes.LightImpact);
-	}
+	public static void RigidImpact() => PlayPreset(HapticPatterns.PresetType.RigidImpact);
 
-	public static void MediumImpact()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
-
-		MMVibrationManager.Haptic(HapticTypes.MediumImpact);
-	}
-
-	public static void HeavyImpact()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
-
-		MMVibrationManager.Haptic(HapticTypes.HeavyImpact);
-	}
-
-	public static void RigidImpact()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
-
-		MMVibrationManager.Haptic(HapticTypes.RigidImpact);
-	}
-
-	public static void SoftImpact()
-	{
-		if (GameSettings.VibrationEnabled == false)
-		{
-			return;
-		}
-
-		MMVibrationManager.Haptic(HapticTypes.SoftImpact);
-	}
+	public static void SoftImpact() => PlayPreset(HapticPatterns.PresetType.SoftImpact);
 }

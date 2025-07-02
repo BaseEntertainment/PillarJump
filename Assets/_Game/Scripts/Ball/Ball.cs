@@ -96,7 +96,7 @@ public class Ball : MonoBehaviour
 
 	public void Jump()
 	{
-		_rigidBody.velocity = _jumpForce * Vector3.up;
+		_rigidBody.linearVelocity = _jumpForce * Vector3.up;
 
 		VibrationSystem.LightImpact();
 	}
@@ -105,15 +105,15 @@ public class Ball : MonoBehaviour
 	{
 		float holdTimeDelta = (Time.time - _startedMoveTime) * Time.deltaTime;
 
-		_rigidBody.velocity += _moveForce * holdTimeDelta * Vector3.right;
-		_rigidBody.velocity = new Vector3(Mathf.Clamp(_rigidBody.velocity.x, 0, _xVelocityLimit), _rigidBody.velocity.y, 0);
+		_rigidBody.linearVelocity += _moveForce * holdTimeDelta * Vector3.right;
+		_rigidBody.linearVelocity = new Vector3(Mathf.Clamp(_rigidBody.linearVelocity.x, 0, _xVelocityLimit), _rigidBody.linearVelocity.y, 0);
 
 		_rigidBody.AddTorque(holdTimeDelta * _rotationForce * Vector3.back);
 	}
 
 	public void MoveToContinuePosition()
 	{
-		_rigidBody.velocity = Vector3.zero;
+		_rigidBody.linearVelocity = Vector3.zero;
 		MoveBallToNearestPillar();
 
 		_canMove = true;
