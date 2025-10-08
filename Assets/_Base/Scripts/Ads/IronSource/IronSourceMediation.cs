@@ -36,7 +36,7 @@ public sealed class IronSourceMediation : AdMediation
 
 		if (string.IsNullOrEmpty(BannerAdUnitID) == false)
 		{
-			BannerAd = new(BannerAdUnitID, displayOnLoad: true);
+			BannerAd = new(BannerAdUnitID);
 			BannerAd.OnAdLoaded += OnAdLoadedSuccessfully;
 			BannerAd.OnAdLoadFailed -= OnAdLoadFailed;
 		}
